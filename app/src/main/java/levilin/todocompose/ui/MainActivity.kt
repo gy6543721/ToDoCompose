@@ -1,4 +1,4 @@
-package levilin.todocompose
+package levilin.todocompose.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

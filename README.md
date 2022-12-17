@@ -6,7 +6,7 @@ Native Android Application written in Kotlin with Jetpack Compose.
 * Jetpack Compose
 * View Binding
 * Data Binding
-* OkHttp3
-* Gson
+* Room
+* Dagger Hilt
 * Junit
 * Android Architecture component Jetpack
