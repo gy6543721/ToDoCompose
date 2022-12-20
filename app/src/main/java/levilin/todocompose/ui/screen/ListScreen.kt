@@ -2,6 +2,7 @@ package levilin.todocompose.ui.screen
 
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -10,19 +11,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import levilin.todocompose.R
+import levilin.todocompose.ui.theme.floatingAddButtonColor
 
 @Composable
-fun ListScreen(navigationToTaskScreen: (Int) -> Unit) {
+fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit) {
     Scaffold(
         content = {},
+        topBar = {
+            ListAppBar()
+        },
         floatingActionButton = {
             ListFloatingActionButton(navigationToTaskScreen = navigationToTaskScreen)
         })
 }
 
 @Composable
-fun ListFloatingActionButton(navigationToTaskScreen: (Int) -> Unit) {
-    FloatingActionButton(onClick = {navigationToTaskScreen(-1)}) {
+fun ListFloatingActionButton(navigationToTaskScreen: (taskID: Int) -> Unit) {
+    FloatingActionButton(onClick = {navigationToTaskScreen(-1)}, backgroundColor = MaterialTheme.colors.floatingAddButtonColor) {
         Icon(
             imageVector = Icons.Filled.Add,
             contentDescription = stringResource(id = R.string.floating_add_button),
