@@ -34,3 +34,11 @@ val Colors.topAppBarBackgroundColor: Color
 val Colors.floatingAddButtonColor: Color
     @Composable
     get() = if (isLight) Blue else DarkBlue
+
+val Colors.taskItemBackgroundColor: Color
+    @Composable
+    get() = if (isLight) LightGray else DarkGray
+
+val Colors.taskItemTextColor: Color
+    @Composable
+    get() = if (isLight) DarkGray else LightGray

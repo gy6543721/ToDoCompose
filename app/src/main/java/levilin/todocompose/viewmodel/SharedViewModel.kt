@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.data.repository.ToDoRepository
+import levilin.todocompose.utility.DataRequestState
 import levilin.todocompose.utility.SearchAppBarState
 import javax.inject.Inject
 
@@ -21,14 +22,20 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
     var searchTextState: MutableState<String> = mutableStateOf("")
 
     // Task State
-    private val _allTasks = MutableStateFlow<List<ToDoTask>>(emptyList())
-    val allTasks:StateFlow<List<ToDoTask>> = _allTasks
+    private val _allTasks = MutableStateFlow<DataRequestState<List<ToDoTask>>>(DataRequestState.Idle)
+    val allTasks:StateFlow<DataRequestState<List<ToDoTask>>> = _allTasks
 
     fun getAllTasks() {
-        viewModelScope.launch {
-            toDoRepository.getAllTasks.collect() {
-                _allTasks.value = it
+        _allTasks.value = DataRequestState.Loading
+
+        try {
+            viewModelScope.launch {
+                toDoRepository.getAllTasks.collect() {
+                    _allTasks.value = DataRequestState.Success(data = it)
+                }
             }
+        } catch (e: Exception) {
+            _allTasks.value = DataRequestState.Failed(error = e)
         }
     }
 }
