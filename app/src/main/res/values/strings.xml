@@ -1,9 +1,11 @@
 <resources>
     <string name="app_name">To Do Compose</string>
 
-    <string name="default_list_appbar_text">Tasks</string>
+    <string name="list_appbar_text_default">Tasks</string>
     <string name="list_appbar_search_icon_text">Search</string>
     <string name="list_appbar_sort_icon_text">Sort</string>
     <string name="list_appbar_delete_all_icon_text">Delete All</string>
+    <string name="search_appbar_placeholder_text_default">Search</string>
+    <string name="search_appbar_trail_icon_text">Close</string>
     <string name="floating_add_button">Add Button</string>
 </resources>
