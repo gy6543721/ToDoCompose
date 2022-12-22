@@ -12,6 +12,8 @@
     <string name="task_appbar_delete_icon_text">Delete</string>
     <string name="task_appbar_update_icon_text">Update</string>
     <string name="drop_down_icon_text">Drop Down Icon</string>
+    <string name="task_content_title_text">Title</string>
+    <string name="task_content_description_text">Description</string>
     <string name="search_appbar_placeholder_text_default">Search</string>
     <string name="search_appbar_trail_icon_text">Close</string>
     <string name="empty_content_text">No Item Found</string>

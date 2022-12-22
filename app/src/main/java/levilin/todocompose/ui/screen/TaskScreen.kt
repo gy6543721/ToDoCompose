@@ -2,6 +2,7 @@ package levilin.todocompose.ui.screen
 
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
+import levilin.todocompose.data.model.Priority
 import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.utility.ActionValue
 
@@ -10,5 +11,14 @@ fun TaskScreen(selectedTask: ToDoTask?, navigationToListScreen:(ActionValue) -> 
     
     Scaffold(
         topBar = { TaskAppBar(selectedItem = selectedTask, navigationToListScreen = navigationToListScreen) },
-        content = {})
+        content = {
+            TaskContent(
+                title = "",
+                onTitleChanged = {},
+                priority = Priority.LOW,
+                onPriorityChanged = {},
+                description = "",
+                onDescriptionChanged = {}
+            )
+        })
 }
