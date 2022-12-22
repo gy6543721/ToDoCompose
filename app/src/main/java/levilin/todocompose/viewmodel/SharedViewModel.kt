@@ -7,16 +7,23 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import levilin.todocompose.data.model.Priority
 import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.data.repository.ToDoRepository
+import levilin.todocompose.utility.ConstantValue
 import levilin.todocompose.utility.DataRequestState
 import levilin.todocompose.utility.SearchAppBarState
 import javax.inject.Inject
 
 @HiltViewModel
 class SharedViewModel @Inject constructor(private val toDoRepository: ToDoRepository) : ViewModel() {
+
+    // Task Content
+    val id: MutableState<Int> = mutableStateOf(0)
+    val title: MutableState<String> = mutableStateOf("")
+    val description: MutableState<String> = mutableStateOf("")
+    val priority: MutableState<Priority> = mutableStateOf(Priority.LOW)
 
     // AppBar State
     var searchAppBarState: MutableState<SearchAppBarState> = mutableStateOf(SearchAppBarState.CLOSED)
@@ -49,5 +56,29 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
                 _selectedTask.value = selectedToDoTask
             }
         }
+    }
+
+    fun updateTaskContent(selectedTask: ToDoTask?) {
+        if (selectedTask != null) {
+            id.value = selectedTask.id
+            title.value = selectedTask.title
+            priority.value = selectedTask.priority
+            description.value = selectedTask.description
+        } else {
+            id.value = 0
+            title.value = ""
+            priority.value = Priority.LOW
+            description.value = ""
+        }
+    }
+
+    fun updateTaskTitle(newTitle: String) {
+        if (newTitle.length < ConstantValue.TASK_TITLE_LIMIT_LENGTH) {
+            title.value = newTitle
+        }
+    }
+
+    fun checkTaskContentNotEmpty(): Boolean {
+        return title.value.isNotEmpty() && description.value.isNotEmpty()
     }
 }

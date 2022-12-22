@@ -12,4 +12,7 @@ object ConstantValue {
     // Composable
     const val LIST_ARGUMENT_KEY = "actionValue"
     const val TASK_ARGUMENT_KEY = "taskID"
+
+    // Task Content
+    const val TASK_TITLE_LIMIT_LENGTH = 25
 }

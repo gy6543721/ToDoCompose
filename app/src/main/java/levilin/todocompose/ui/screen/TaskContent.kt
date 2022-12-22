@@ -40,7 +40,7 @@ fun TaskContent(title: String, onTitleChanged:(String) -> Unit, priority: Priori
         // Description
         OutlinedTextField(
             modifier = Modifier.fillMaxSize(),
-            value = title, onValueChange = { onDescriptionChanged(it) },
+            value = description, onValueChange = { onDescriptionChanged(it) },
             label = { Text(text = stringResource(id = R.string.task_content_description_text)) },
             textStyle = MaterialTheme.typography.body1,
         )
