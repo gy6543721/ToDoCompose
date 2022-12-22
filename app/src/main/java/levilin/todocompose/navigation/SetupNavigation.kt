@@ -1,6 +1,6 @@
 package levilin.todocompose.navigation
 
-
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -10,6 +10,7 @@ import levilin.todocompose.navigation.destination.taskComposable
 import levilin.todocompose.utility.ConstantValue
 import levilin.todocompose.viewmodel.SharedViewModel
 
+@ExperimentalMaterialApi
 @Composable
 fun SetupNavigation(navHostController: NavHostController, sharedViewModel: SharedViewModel) {
 
@@ -19,6 +20,6 @@ fun SetupNavigation(navHostController: NavHostController, sharedViewModel: Share
     
     NavHost(navController = navHostController, startDestination = ConstantValue.LIST_SCREEN) {
         listComposable(navigateToTaskScreen = screen.task, sharedViewModel= sharedViewModel)
-        taskComposable(navigateToListScreen = screen.list)
+        taskComposable(navigateToListScreen = screen.list, sharedViewModel = sharedViewModel)
     }
 }

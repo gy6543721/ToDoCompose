@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.data.repository.ToDoRepository
@@ -30,12 +31,23 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
 
         try {
             viewModelScope.launch {
-                toDoRepository.getAllTasks.collect() {
-                    _allTasks.value = DataRequestState.Success(data = it)
+                toDoRepository.getAllTasks.collect() { listToDoTask ->
+                    _allTasks.value = DataRequestState.Success(data =  listToDoTask)
                 }
             }
         } catch (e: Exception) {
             _allTasks.value = DataRequestState.Failed(error = e)
+        }
+    }
+
+    private val _selectedTask: MutableStateFlow<ToDoTask?> = MutableStateFlow(null)
+    val selectedTask: StateFlow<ToDoTask?> = _selectedTask
+
+    fun getSelectedTasks(taskID: Int) {
+        viewModelScope.launch {
+            toDoRepository.getSelectedTask(taskID = taskID).collect(){ selectedToDoTask ->
+                _selectedTask.value = selectedToDoTask
+            }
         }
     }
 }

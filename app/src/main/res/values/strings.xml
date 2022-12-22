@@ -5,6 +5,13 @@
     <string name="list_appbar_search_icon_text">Search</string>
     <string name="list_appbar_sort_icon_text">Sort</string>
     <string name="list_appbar_delete_all_icon_text">Delete All</string>
+    <string name="task_appbar_text_default">Add Task</string>
+    <string name="task_appbar_back_icon_text">Back</string>
+    <string name="task_appbar_add_icon_text">Add</string>
+    <string name="task_appbar_close_icon_text">Close</string>
+    <string name="task_appbar_delete_icon_text">Delete</string>
+    <string name="task_appbar_update_icon_text">Update</string>
+    <string name="drop_down_icon_text">Drop Down Icon</string>
     <string name="search_appbar_placeholder_text_default">Search</string>
     <string name="search_appbar_trail_icon_text">Close</string>
     <string name="empty_content_text">No Item Found</string>

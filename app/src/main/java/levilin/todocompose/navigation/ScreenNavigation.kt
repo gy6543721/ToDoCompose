@@ -15,7 +15,6 @@ class ScreenNavigation(navHostController: NavHostController) {
 
     val task:(Int) -> Unit = { taskID ->
         navHostController.navigate("task/${taskID}") {
-
         }
     }
 }
