@@ -66,7 +66,8 @@ fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -
             scope.launch {
                 val actionMessage = scaffoldState.snackbarHostState.showSnackbar(
                     message = "${actionValue.name} $taskTitle",
-                    actionLabel = "OK"
+                    actionLabel = "OK",
+                    duration = SnackbarDuration.Short
                 )
             }
         }
