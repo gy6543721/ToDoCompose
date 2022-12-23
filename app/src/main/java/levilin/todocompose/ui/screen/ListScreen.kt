@@ -33,20 +33,15 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
         handleDatabaseAction = { sharedViewModel.handleDatabaseAction(actionValue = actionValue) },
         taskTitle = sharedViewModel.title.value,
         actionValue = actionValue,
-        onUndoClicked = { actionValue ->  
-            sharedViewModel.actionValue.value = actionValue
-        }
+        onUndoClicked = { undoActionValue -> sharedViewModel.actionValue.value = undoActionValue }
     )
 
     Scaffold(
         scaffoldState = scaffoldState,
         content = { ListContent(allData = allTasks, searchedData = searchedTasks, searchAppBarState = searchAppBarState, navigationToTaskScreen = navigationToTaskScreen) },
-        topBar = {
-            ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState)
-        },
-        floatingActionButton = {
-            ListFloatingActionButton(navigationToTaskScreen = navigationToTaskScreen)
-        })
+        topBar = { ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState) },
+        floatingActionButton = { ListFloatingActionButton(navigationToTaskScreen = navigationToTaskScreen) }
+    )
 }
 
 @Composable
@@ -68,7 +63,7 @@ fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -
         if (actionValue != ActionValue.NO_ACTION) {
             scope.launch {
                 val actionMessage = scaffoldState.snackbarHostState.showSnackbar(
-                    message = "${actionValue.name} $taskTitle",
+                    message = setDisplayMessage(actionValue = actionValue, itemTitle = taskTitle),
                     actionLabel = setActionLabel(actionValue = actionValue),
                     duration = SnackbarDuration.Short
                 )
@@ -83,6 +78,16 @@ private fun setActionLabel(actionValue: ActionValue): String {
         "UNDO"
     } else {
         "OK"
+    }
+}
+
+private fun setDisplayMessage(actionValue: ActionValue, itemTitle: String): String {
+    return when (actionValue) {
+        ActionValue.ADD -> "Add item $itemTitle"
+        ActionValue.UPDATE -> "Update item $itemTitle"
+        ActionValue.DELETE -> "Delete item $itemTitle"
+        ActionValue.DELETE_ALL -> "All items are deleted"
+        else -> "${actionValue.name} $itemTitle"
     }
 }
 

@@ -25,6 +25,7 @@ import levilin.todocompose.ui.theme.SMALL_PADDING
 import levilin.todocompose.ui.theme.TOP_APPBAR_HEIGHT
 import levilin.todocompose.ui.theme.topAppBarBackgroundColor
 import levilin.todocompose.ui.theme.topAppBarItemColor
+import levilin.todocompose.utility.ActionValue
 import levilin.todocompose.utility.SearchAppBarState
 import levilin.todocompose.utility.SearchAppBarTrailingIconState
 import levilin.todocompose.viewmodel.SharedViewModel
@@ -35,11 +36,9 @@ fun ListAppBar(sharedViewModel: SharedViewModel, searchAppBarState: SearchAppBar
     when(searchAppBarState) {
         SearchAppBarState.CLOSED -> {
             DefaultListAppBar(
-                onSearchClicked = {
-                    sharedViewModel.searchAppBarState.value = SearchAppBarState.OPENED
-                },
+                onSearchClicked = { sharedViewModel.searchAppBarState.value = SearchAppBarState.OPENED },
                 onSortClicked = {},
-                onDeleteAllClicked = {}
+                onDeleteAllClicked = { sharedViewModel.actionValue.value = ActionValue.DELETE_ALL }
             )
         }
         else -> {
