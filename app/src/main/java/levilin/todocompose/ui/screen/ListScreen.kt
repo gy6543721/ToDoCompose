@@ -3,18 +3,16 @@ package levilin.todocompose.ui.screen
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import levilin.todocompose.R
 import levilin.todocompose.ui.theme.floatingAddButtonColor
 import levilin.todocompose.utility.ActionValue
 import levilin.todocompose.utility.SearchAppBarState
 import levilin.todocompose.viewmodel.SharedViewModel
+import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
@@ -28,10 +26,17 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
     val actionValue: ActionValue by sharedViewModel.actionValue
+    val scaffoldState = rememberScaffoldState()
 
-    sharedViewModel.handleDatabaseAction(actionValue = actionValue)
+    DisplayActionMessage(
+        scaffoldState = scaffoldState,
+        handleDatabaseAction = { sharedViewModel.handleDatabaseAction(actionValue = actionValue) },
+        taskTitle = sharedViewModel.title.value,
+        actionValue = actionValue
+    )
 
     Scaffold(
+        scaffoldState = scaffoldState,
         content = { ListContent(rawData = allTasks, navigationToTaskScreen = navigationToTaskScreen) },
         topBar = {
             ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState)
@@ -51,6 +56,23 @@ fun ListFloatingActionButton(navigationToTaskScreen: (taskID: Int) -> Unit) {
         )
     }
 }
+
+@Composable
+fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -> Unit, taskTitle: String, actionValue: ActionValue) {
+    handleDatabaseAction()
+    val scope = rememberCoroutineScope()
+    LaunchedEffect(key1 = actionValue) {
+        if (actionValue != ActionValue.NO_ACTION) {
+            scope.launch {
+                val actionMessage = scaffoldState.snackbarHostState.showSnackbar(
+                    message = "${actionValue.name} $taskTitle",
+                    actionLabel = "OK"
+                )
+            }
+        }
+    }
+}
+
 
 //@ExperimentalMaterialApi
 //@Composable
