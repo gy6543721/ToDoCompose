@@ -9,7 +9,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ExperimentalComposeApi
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
@@ -20,22 +19,35 @@ import levilin.todocompose.data.model.Priority
 import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.ui.theme.*
 import levilin.todocompose.utility.DataRequestState
+import levilin.todocompose.utility.SearchAppBarState
 
 @ExperimentalMaterialApi
 @Composable
-fun ListContent(rawData: DataRequestState<List<ToDoTask>>, navigationToTaskScreen:(taskID: Int) -> Unit) {
-    if(rawData is DataRequestState.Success) {
-        if(rawData.data.isEmpty()) {
-            EmptyContent()
-        } else {
-            DisplayAllTasks(toDoTaskList = rawData.data, navigationToTaskScreen = navigationToTaskScreen)
+fun ListContent(allData: DataRequestState<List<ToDoTask>>, searchedData: DataRequestState<List<ToDoTask>>, searchAppBarState: SearchAppBarState, navigationToTaskScreen:(taskID: Int) -> Unit) {
+    if (searchAppBarState == SearchAppBarState.TRIGGERED) {
+        if (searchedData is DataRequestState.Success) {
+            HandleListContent(toDoTaskList = searchedData.data, navigationToTaskScreen = navigationToTaskScreen)
+        }
+    } else {
+        if (allData is DataRequestState.Success) {
+            HandleListContent(toDoTaskList = allData.data, navigationToTaskScreen = navigationToTaskScreen)
         }
     }
 }
 
 @ExperimentalMaterialApi
 @Composable
-fun DisplayAllTasks(toDoTaskList: List<ToDoTask>, navigationToTaskScreen:(taskID: Int) -> Unit) {
+fun HandleListContent(toDoTaskList: List<ToDoTask>, navigationToTaskScreen:(taskID: Int) -> Unit) {
+    if(toDoTaskList.isEmpty()) {
+        EmptyContent()
+    } else {
+        DisplayTasks(toDoTaskList = toDoTaskList, navigationToTaskScreen = navigationToTaskScreen)
+    }
+}
+
+@ExperimentalMaterialApi
+@Composable
+fun DisplayTasks(toDoTaskList: List<ToDoTask>, navigationToTaskScreen:(taskID: Int) -> Unit) {
     LazyColumn {
         items(items = toDoTaskList, key = { toDoTaskList -> toDoTaskList.id }) { toDoTaskList ->
             TaskItem(toDoTask = toDoTaskList, navigationToTaskScreen = navigationToTaskScreen)

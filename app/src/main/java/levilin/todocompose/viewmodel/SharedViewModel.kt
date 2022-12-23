@@ -8,6 +8,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import levilin.todocompose.data.model.Priority
 import levilin.todocompose.data.model.ToDoTask
@@ -38,6 +39,10 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
     private val _allTasks = MutableStateFlow<DataRequestState<List<ToDoTask>>>(DataRequestState.Idle)
     val allTasks:StateFlow<DataRequestState<List<ToDoTask>>> = _allTasks
 
+    // Search Task
+    private val _searchedTasks = MutableStateFlow<DataRequestState<List<ToDoTask>>>(DataRequestState.Idle)
+    val searchedTasks:StateFlow<DataRequestState<List<ToDoTask>>> = _searchedTasks
+
     fun getAllTasks() {
         _allTasks.value = DataRequestState.Loading
 
@@ -63,6 +68,21 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
         }
     }
 
+    fun searchSelectedTasks(searchQuery: String) {
+        _searchedTasks.value = DataRequestState.Loading
+
+        try {
+            viewModelScope.launch {
+                toDoRepository.searchDataBase(searchQuery = "%$searchQuery%").collect(){ searchResult ->
+                    _searchedTasks.value = DataRequestState.Success(searchResult)
+                }
+            }
+        } catch (e: Exception) {
+            _searchedTasks.value = DataRequestState.Failed(error = e)
+        }
+        searchAppBarState.value = SearchAppBarState.TRIGGERED
+    }
+
     fun handleDatabaseAction(actionValue: ActionValue) {
         when(actionValue) {
             ActionValue.ADD -> { addTask() }
@@ -80,6 +100,7 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
             val toDoTask = ToDoTask(title = title.value, description = description.value, priority = priority.value)
             toDoRepository.addTask(toDoTask = toDoTask)
         }
+        searchAppBarState.value = SearchAppBarState.CLOSED
     }
 
     private fun updateTask() {

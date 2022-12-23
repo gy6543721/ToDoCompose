@@ -11,7 +11,6 @@ import levilin.todocompose.ui.theme.floatingAddButtonColor
 import levilin.todocompose.utility.ActionValue
 import levilin.todocompose.utility.SearchAppBarState
 import levilin.todocompose.viewmodel.SharedViewModel
-import androidx.compose.ui.tooling.preview.Preview
 import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
@@ -23,6 +22,7 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
     }
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
+    val searchedTasks by sharedViewModel.searchedTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
     val actionValue: ActionValue by sharedViewModel.actionValue
@@ -40,7 +40,7 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
 
     Scaffold(
         scaffoldState = scaffoldState,
-        content = { ListContent(rawData = allTasks, navigationToTaskScreen = navigationToTaskScreen) },
+        content = { ListContent(allData = allTasks, searchedData = searchedTasks, searchAppBarState = searchAppBarState, navigationToTaskScreen = navigationToTaskScreen) },
         topBar = {
             ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState)
         },
