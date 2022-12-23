@@ -32,7 +32,10 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
         scaffoldState = scaffoldState,
         handleDatabaseAction = { sharedViewModel.handleDatabaseAction(actionValue = actionValue) },
         taskTitle = sharedViewModel.title.value,
-        actionValue = actionValue
+        actionValue = actionValue,
+        onUndoClicked = { actionValue ->  
+            sharedViewModel.actionValue.value = actionValue
+        }
     )
 
     Scaffold(
@@ -58,7 +61,7 @@ fun ListFloatingActionButton(navigationToTaskScreen: (taskID: Int) -> Unit) {
 }
 
 @Composable
-fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -> Unit, taskTitle: String, actionValue: ActionValue) {
+fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -> Unit, taskTitle: String, actionValue: ActionValue, onUndoClicked:(ActionValue) -> Unit) {
     handleDatabaseAction()
     val scope = rememberCoroutineScope()
     LaunchedEffect(key1 = actionValue) {
@@ -66,11 +69,26 @@ fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -
             scope.launch {
                 val actionMessage = scaffoldState.snackbarHostState.showSnackbar(
                     message = "${actionValue.name} $taskTitle",
-                    actionLabel = "OK",
+                    actionLabel = setActionLabel(actionValue = actionValue),
                     duration = SnackbarDuration.Short
                 )
+                undoDeleteTask(actionValue = actionValue, snackBarResult = actionMessage, onUndoClicked = onUndoClicked)
             }
         }
+    }
+}
+
+private fun setActionLabel(actionValue: ActionValue): String {
+    return if (actionValue == ActionValue.DELETE) {
+        "UNDO"
+    } else {
+        "OK"
+    }
+}
+
+private fun undoDeleteTask(actionValue: ActionValue, snackBarResult: SnackbarResult, onUndoClicked:(ActionValue) -> Unit) {
+    if (snackBarResult == SnackbarResult.ActionPerformed && actionValue == ActionValue.DELETE) {
+        onUndoClicked(ActionValue.UNDO)
     }
 }
 
