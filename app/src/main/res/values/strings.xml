@@ -21,4 +21,10 @@
 
     <string name="floating_add_button">Add Button</string>
     <string name="empty_item_icon">Empty Icon</string>
+
+    <string name="alert_dialog_button_confirm">YES</string>
+    <string name="alert_dialog_button_cancel">NO</string>
+
+    <string name="delete_task_title">Delete \[%1$s]\</string>
+    <string name="delete_task_message">Are you sure you want to delete \[%1$s]\ ?</string>
 </resources>

@@ -87,6 +87,7 @@ private fun setDisplayMessage(actionValue: ActionValue, itemTitle: String): Stri
         ActionValue.UPDATE -> "Update item $itemTitle"
         ActionValue.DELETE -> "Delete item $itemTitle"
         ActionValue.DELETE_ALL -> "All items are deleted"
+        ActionValue.UNDO -> "Undo delete item $itemTitle"
         else -> "${actionValue.name} $itemTitle"
     }
 }
