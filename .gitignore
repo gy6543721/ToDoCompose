@@ -30,5 +30,5 @@ google-services.json
 *.hprof
 
 # Others
-*.DS_Store
 .DS_Store
+.DS_Store?
