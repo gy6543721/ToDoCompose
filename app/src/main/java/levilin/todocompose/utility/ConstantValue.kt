@@ -5,6 +5,10 @@ object ConstantValue {
     const val DATABASE_TABLE = "todo_table"
     const val DATABASE_NAME = "todo_database"
 
+    // DataStore
+    const val PREFERENCE_NAME = "todo_preferences"
+    const val PREFERENCE_KEY = "sort_state"
+
     // Screen
     const val LIST_SCREEN = "list/{actionValue}"
     const val TASK_SCREEN = "task/{taskID}"

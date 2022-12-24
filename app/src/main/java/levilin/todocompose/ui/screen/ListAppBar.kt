@@ -19,6 +19,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import levilin.todocompose.R
+import levilin.todocompose.component.DeleteItemAlertDialog
 import levilin.todocompose.component.PriorityItem
 import levilin.todocompose.data.model.Priority
 import levilin.todocompose.ui.theme.SMALL_PADDING
@@ -66,9 +67,19 @@ fun DefaultListAppBar(onSearchClicked:() -> Unit, onSortClicked:(Priority) -> Un
 
 @Composable
 fun ListAppBarAction(onSearchClicked:() -> Unit, onSortClicked:(Priority) -> Unit, onDeleteAllClicked: () -> Unit) {
+    // Delete all alert dialog
+    var launchDialog by remember { mutableStateOf(false) }
+    DeleteItemAlertDialog(
+        title = stringResource(id = R.string.delete_all_task_title),
+        message = stringResource(id = R.string.delete_all_task_message),
+        launchDialog = launchDialog,
+        closeDialog = { launchDialog = false },
+        onConfirmClicked = { onDeleteAllClicked() }
+    )
+
     SearchAction(onSearchClicked = onSearchClicked)
     SortAction(onSortClicked = onSortClicked)
-    DeleteAllAction (onDeleteAllClicked = onDeleteAllClicked)
+    DeleteAllAction (onDeleteAllClicked = { launchDialog = true })
 }
 
 // Define each action

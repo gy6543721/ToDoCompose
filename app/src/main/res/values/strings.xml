@@ -27,4 +27,6 @@
 
     <string name="delete_task_title">Delete \[%1$s]\</string>
     <string name="delete_task_message">Are you sure you want to delete \[%1$s]\ ?</string>
+    <string name="delete_all_task_title">Delete All Items</string>
+    <string name="delete_all_task_message">[Warning] This action cannot be undone. Are you sure you want to delete all items ?</string>
 </resources>

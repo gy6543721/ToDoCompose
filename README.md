@@ -5,8 +5,7 @@ Native Android Application written in Kotlin with Jetpack Compose.
 
 # Main Libraries Used
 * Jetpack Compose
-* View Binding
-* Data Binding
+* JetPack DataStore
 * Room
 * Dagger Hilt
 * Junit
