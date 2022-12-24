@@ -19,10 +19,14 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
 
     LaunchedEffect(key1 = true) {
         sharedViewModel.getAllTasks()
+        sharedViewModel.getSortState()
     }
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
     val searchedTasks by sharedViewModel.searchedTasks.collectAsState()
+    val sortState by sharedViewModel.sortState.collectAsState()
+    val lowPriorityTasks by sharedViewModel.lowPriorityTasks.collectAsState()
+    val highPriorityTasks by sharedViewModel.highPriorityTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
     val actionValue: ActionValue by sharedViewModel.actionValue
@@ -38,7 +42,7 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
 
     Scaffold(
         scaffoldState = scaffoldState,
-        content = { ListContent(allData = allTasks, searchedData = searchedTasks, searchAppBarState = searchAppBarState, navigationToTaskScreen = navigationToTaskScreen) },
+        content = { ListContent(allData = allTasks, searchedData = searchedTasks, lowPriorityData = lowPriorityTasks, highPriorityData = highPriorityTasks, sortState = sortState, searchAppBarState = searchAppBarState, navigationToTaskScreen = navigationToTaskScreen) },
         topBar = { ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState) },
         floatingActionButton = { ListFloatingActionButton(navigationToTaskScreen = navigationToTaskScreen) }
     )

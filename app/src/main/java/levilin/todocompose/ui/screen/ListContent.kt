@@ -23,14 +23,37 @@ import levilin.todocompose.utility.SearchAppBarState
 
 @ExperimentalMaterialApi
 @Composable
-fun ListContent(allData: DataRequestState<List<ToDoTask>>, searchedData: DataRequestState<List<ToDoTask>>, searchAppBarState: SearchAppBarState, navigationToTaskScreen:(taskID: Int) -> Unit) {
-    if (searchAppBarState == SearchAppBarState.TRIGGERED) {
-        if (searchedData is DataRequestState.Success) {
-            HandleListContent(toDoTaskList = searchedData.data, navigationToTaskScreen = navigationToTaskScreen)
-        }
-    } else {
-        if (allData is DataRequestState.Success) {
-            HandleListContent(toDoTaskList = allData.data, navigationToTaskScreen = navigationToTaskScreen)
+fun ListContent(
+    allData: DataRequestState<List<ToDoTask>>,
+    searchedData: DataRequestState<List<ToDoTask>>,
+    lowPriorityData: List<ToDoTask>,
+    highPriorityData: List<ToDoTask>,
+    sortState: DataRequestState<Priority>,
+    searchAppBarState: SearchAppBarState,
+    navigationToTaskScreen:(taskID: Int) -> Unit
+) {
+    if (sortState is DataRequestState.Success) {
+        when {
+            searchAppBarState == SearchAppBarState.TRIGGERED -> {
+                if (searchedData is DataRequestState.Success) {
+                    HandleListContent(toDoTaskList = searchedData.data, navigationToTaskScreen = navigationToTaskScreen)
+                }
+            }
+            sortState.data == Priority.NONE -> {
+                if (allData is DataRequestState.Success) {
+                    HandleListContent(toDoTaskList = allData.data, navigationToTaskScreen = navigationToTaskScreen)
+                }
+            }
+            sortState.data == Priority.LOW -> {
+                if (allData is DataRequestState.Success) {
+                    HandleListContent(toDoTaskList = lowPriorityData, navigationToTaskScreen = navigationToTaskScreen)
+                }
+            }
+            sortState.data == Priority.HIGH -> {
+                if (allData is DataRequestState.Success) {
+                    HandleListContent(toDoTaskList = highPriorityData, navigationToTaskScreen = navigationToTaskScreen)
+                }
+            }
         }
     }
 }
