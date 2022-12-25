@@ -19,6 +19,7 @@
     <string name="search_appbar_trail_icon_text">Close</string>
     <string name="empty_content_text">No Item Found</string>
     <string name="swipe_delete_background_icon">Swipe Delete Icon</string>
+    <string name="splash_screen_background_logo">Splash Screen Logo</string>
 
     <string name="floating_add_button">Add Button</string>
     <string name="empty_item_icon">Empty Icon</string>

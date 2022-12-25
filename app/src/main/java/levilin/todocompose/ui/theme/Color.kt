@@ -9,7 +9,7 @@ val Purple500 = Color(0xFF6200EE)
 val Purple700 = Color(0xFF3700B3)
 val Teal200 = Color(0xFF03DAC5)
 
-val LightBlue = Color(0xFF89D0F3)
+val LightBlue = Color(0xFFB6DFF3)
 val Blue = Color(0xFF32A5DD)
 val DarkBlue = Color(0xFF058ACA)
 
@@ -22,6 +22,10 @@ val MediumPriority = Color(0xFFFAA850)
 val LowPriority = Color(0xFF4CAF50)
 val NonePriority = Color(0xFFA1ADAC)
 
+
+val Colors.splashScreenBackgroundColor: Color
+    @Composable
+    get() = if (isLight) LightBlue else DarkGray
 
 val Colors.topAppBarItemColor: Color
     @Composable
