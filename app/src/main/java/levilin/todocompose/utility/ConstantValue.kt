@@ -24,4 +24,5 @@ object ConstantValue {
     const val SWIPE_DELETE_FRACTION = 0.25f
     const val SWIPE_DELETE_START_ANGLE = 0f
     const val SWIPE_DELETE_END_ANGLE = -45f
+    const val ANIMATION_VISIBILITY_DURATION = 300
 }
