@@ -42,7 +42,18 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
 
     Scaffold(
         scaffoldState = scaffoldState,
-        content = { ListContent(allData = allTasks, searchedData = searchedTasks, lowPriorityData = lowPriorityTasks, highPriorityData = highPriorityTasks, sortState = sortState, searchAppBarState = searchAppBarState, navigationToTaskScreen = navigationToTaskScreen) },
+        content = { ListContent(
+            allData = allTasks,
+            searchedData = searchedTasks,
+            lowPriorityData = lowPriorityTasks,
+            highPriorityData = highPriorityTasks,
+            sortState = sortState,
+            searchAppBarState = searchAppBarState,
+            onSwipeToDelete = { actionValue, task ->
+                sharedViewModel.actionValue.value = actionValue
+                sharedViewModel.updateTaskContent(selectedTask = task)
+            },
+            navigationToTaskScreen = navigationToTaskScreen) },
         topBar = { ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState) },
         floatingActionButton = { ListFloatingActionButton(navigationToTaskScreen = navigationToTaskScreen) }
     )

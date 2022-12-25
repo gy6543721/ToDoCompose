@@ -19,4 +19,9 @@ object ConstantValue {
 
     // Task Content
     const val TASK_TITLE_LIMIT_LENGTH = 25
+
+    // Swipe Delete
+    const val SWIPE_DELETE_FRACTION = 0.25f
+    const val SWIPE_DELETE_START_ANGLE = 0f
+    const val SWIPE_DELETE_END_ANGLE = -45f
 }
