@@ -3,6 +3,7 @@ package levilin.todocompose.navigation.destination
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -19,9 +20,13 @@ fun NavGraphBuilder.listComposable(navigateToTaskScreen: (taskID: Int) -> Unit, 
         type = NavType.StringType
     })) { navBackStackEntry ->
         val actionValue = navBackStackEntry.arguments?.getString(ConstantValue.LIST_ARGUMENT_KEY).toActionValue()
+        var defaultActionValue by rememberSaveable { mutableStateOf(ActionValue.NO_ACTION) }
 
-        LaunchedEffect(key1 = actionValue) {
-            sharedViewModel.actionValue.value = actionValue
+        LaunchedEffect(key1 = defaultActionValue) {
+            if (actionValue != defaultActionValue) {
+                defaultActionValue = actionValue
+                sharedViewModel.actionValue.value = actionValue
+            }
         }
 
         val databaseActionValue: ActionValue by sharedViewModel.actionValue

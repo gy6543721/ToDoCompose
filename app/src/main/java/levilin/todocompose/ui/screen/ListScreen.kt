@@ -50,6 +50,8 @@ fun ListScreen(actionValue: ActionValue, navigationToTaskScreen: (taskID: Int) -
             onSwipeToDelete = { actionValue, task ->
                 sharedViewModel.actionValue.value = actionValue
                 sharedViewModel.updateTaskContent(selectedTask = task)
+                // when delete a new item stop showing previous item message
+                scaffoldState.snackbarHostState.currentSnackbarData?.dismiss()
             },
             navigationToTaskScreen = navigationToTaskScreen) },
         topBar = { ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState) },
@@ -111,11 +113,3 @@ private fun undoDeleteTask(actionValue: ActionValue, snackBarResult: SnackbarRes
         onUndoClicked(ActionValue.UNDO)
     }
 }
-
-
-//@ExperimentalMaterialApi
-//@Composable
-//@Preview
-//private fun ListScreenPreview() {
-//    ListScreen(navigationToTaskScreen = {}, sharedViewModel = {})
-//}

@@ -28,7 +28,6 @@ import levilin.todocompose.ui.theme.topAppBarBackgroundColor
 import levilin.todocompose.ui.theme.topAppBarItemColor
 import levilin.todocompose.utility.ActionValue
 import levilin.todocompose.utility.SearchAppBarState
-import levilin.todocompose.utility.SearchAppBarTrailingIconState
 import levilin.todocompose.viewmodel.SharedViewModel
 import androidx.compose.material.TextField as TextField
 
@@ -148,9 +147,6 @@ fun DeleteAllAction(onDeleteAllClicked:() -> Unit) {
 
 @Composable
 fun SearchAppBar(text: String, onTextChanged: (String) -> Unit, onCloseClicked: () -> Unit, onSearchClicked: (String) -> Unit) {
-    var trailingIconState by remember {
-        mutableStateOf(SearchAppBarTrailingIconState.READY_TO_CLOSE)
-    }
 
     Surface(modifier = Modifier
         .fillMaxWidth()
@@ -165,19 +161,10 @@ fun SearchAppBar(text: String, onTextChanged: (String) -> Unit, onCloseClicked: 
             leadingIcon = { Icon(modifier = Modifier.alpha(ContentAlpha.disabled), imageVector = Icons.Filled.Search, contentDescription = stringResource(id = R.string.list_appbar_search_icon_text), tint = MaterialTheme.colors.topAppBarItemColor)},
             trailingIcon = { IconButton(
                 onClick = {
-                    when(trailingIconState) {
-                        SearchAppBarTrailingIconState.READY_TO_DELETE -> {
-                            onTextChanged("")
-                            trailingIconState = SearchAppBarTrailingIconState.READY_TO_CLOSE
-                        }
-                        SearchAppBarTrailingIconState.READY_TO_CLOSE -> {
-                            if(text.isNotEmpty()) {
-                                onTextChanged("")
-                            } else {
-                                onCloseClicked()
-                                trailingIconState = SearchAppBarTrailingIconState.READY_TO_DELETE
-                            }
-                        }
+                    if (text.isNotEmpty()) {
+                        onTextChanged("")
+                    } else {
+                        onCloseClicked()
                     }
                 }) {
                 Icon(modifier = Modifier.alpha(ContentAlpha.medium), imageVector = Icons.Filled.Close, contentDescription = stringResource(id = R.string.search_appbar_trail_icon_text), tint = MaterialTheme.colors.topAppBarItemColor)}
