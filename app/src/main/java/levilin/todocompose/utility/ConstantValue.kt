@@ -10,6 +10,7 @@ object ConstantValue {
     const val PREFERENCE_KEY = "sort_state"
 
     // Screen
+    const val SPLASH_SCREEN = "splashScreen"
     const val LIST_SCREEN = "list/{actionValue}"
     const val TASK_SCREEN = "task/{taskID}"
 
@@ -25,4 +26,10 @@ object ConstantValue {
     const val SWIPE_DELETE_START_ANGLE = 0f
     const val SWIPE_DELETE_END_ANGLE = -45f
     const val ANIMATION_VISIBILITY_DURATION = 300
+
+    // Splash Screen Animation
+    const val SPLASH_SCREEN_DELAY = 1500
+    const val SPLASH_SCREEN_ANIMATION_DURATION = 1000
+    const val SPLASH_SCREEN_ANIMATION_ALPHA_START = 0f
+    const val SPLASH_SCREEN_ANIMATION_ALPHA_END = 1f
 }

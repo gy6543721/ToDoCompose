@@ -25,7 +25,7 @@ val NonePriority = Color(0xFFA1ADAC)
 
 val Colors.splashScreenBackgroundColor: Color
     @Composable
-    get() = if (isLight) LightBlue else DarkGray
+    get() = if (isLight) LightGray else DarkGray
 
 val Colors.topAppBarItemColor: Color
     @Composable

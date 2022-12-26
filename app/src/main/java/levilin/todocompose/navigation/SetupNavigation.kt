@@ -6,6 +6,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import levilin.todocompose.navigation.destination.listComposable
+import levilin.todocompose.navigation.destination.splashComposable
 import levilin.todocompose.navigation.destination.taskComposable
 import levilin.todocompose.utility.ConstantValue
 import levilin.todocompose.viewmodel.SharedViewModel
@@ -18,8 +19,9 @@ fun SetupNavigation(navHostController: NavHostController, sharedViewModel: Share
         ScreenNavigation(navHostController = navHostController)
     }
     
-    NavHost(navController = navHostController, startDestination = ConstantValue.LIST_SCREEN) {
-        listComposable(navigateToTaskScreen = screen.task, sharedViewModel= sharedViewModel)
-        taskComposable(navigateToListScreen = screen.list, sharedViewModel = sharedViewModel)
+    NavHost(navController = navHostController, startDestination = ConstantValue.SPLASH_SCREEN) {
+        splashComposable(navigateToListScreen = screen.splashScreen)
+        listComposable(navigateToTaskScreen = screen.listScreen, sharedViewModel= sharedViewModel)
+        taskComposable(navigateToListScreen = screen.taskScreen, sharedViewModel = sharedViewModel)
     }
 }
