@@ -15,7 +15,7 @@ val DarkGray = Color(0xFF5A5959)
 val HighPriority = Color(0xFFFD3E44)
 val MediumPriority = Color(0xFFFAA850)
 val LowPriority = Color(0xFF4CAF50)
-val NonePriority = Color(0xFFA1ADAC)
+val NoPriority = Color(0xFFA1ADAC)
 
 
 val Colors.splashScreenBackgroundColor: Color

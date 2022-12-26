@@ -52,7 +52,7 @@ fun ListContent(
                     HandleListContent(toDoTaskList = searchedData.data, onSwipeToDelete = onSwipeToDelete, navigationToTaskScreen = navigationToTaskScreen)
                 }
             }
-            sortState.data == Priority.NONE -> {
+            sortState.data == Priority.NO -> {
                 if (allData is DataRequestState.Success) {
                     HandleListContent(toDoTaskList = allData.data, onSwipeToDelete = onSwipeToDelete, navigationToTaskScreen = navigationToTaskScreen)
                 }

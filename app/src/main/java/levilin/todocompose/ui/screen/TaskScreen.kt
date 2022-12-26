@@ -1,5 +1,6 @@
 package levilin.todocompose.ui.screen
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -14,6 +15,7 @@ import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.utility.ActionValue
 import levilin.todocompose.viewmodel.SharedViewModel
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun TaskScreen(selectedTask: ToDoTask?, sharedViewModel: SharedViewModel, navigationToListScreen:(ActionValue) -> Unit) {
 
@@ -67,7 +69,7 @@ fun BackHandler(
     val backCallback = remember {
         object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                currentOnBackPressed
+                currentOnBackPressed()
             }
         }
     }

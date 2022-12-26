@@ -20,7 +20,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import levilin.todocompose.R
 import levilin.todocompose.component.DeleteItemAlertDialog
-import levilin.todocompose.component.PriorityItem
+import levilin.todocompose.component.PrioritySortItem
 import levilin.todocompose.data.model.Priority
 import levilin.todocompose.ui.theme.SMALL_PADDING
 import levilin.todocompose.ui.theme.TOP_APPBAR_HEIGHT
@@ -106,17 +106,17 @@ fun SortAction(onSortClicked:(Priority) -> Unit) {
             DropdownMenuItem(onClick = {
                 expanded = false
                 onSortClicked(Priority.LOW)
-            }) { PriorityItem(priority = Priority.LOW) }
+            }) { PrioritySortItem(priority = Priority.LOW) }
 
             DropdownMenuItem(onClick = {
                 expanded = false
                 onSortClicked(Priority.HIGH)
-            }) { PriorityItem(priority = Priority.HIGH) }
+            }) { PrioritySortItem(priority = Priority.HIGH) }
 
             DropdownMenuItem(onClick = {
                 expanded = false
-                onSortClicked(Priority.NONE)
-            }) { PriorityItem(priority = Priority.NONE) }
+                onSortClicked(Priority.NO)
+            }) { PrioritySortItem(priority = Priority.NO) }
         }
     }
 }

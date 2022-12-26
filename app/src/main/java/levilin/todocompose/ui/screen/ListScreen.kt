@@ -17,11 +17,6 @@ import kotlinx.coroutines.launch
 @Composable
 fun ListScreen(actionValue: ActionValue, navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: SharedViewModel) {
 
-    LaunchedEffect(key1 = true) {
-        sharedViewModel.getAllTasks()
-        sharedViewModel.getSortState()
-    }
-
     LaunchedEffect(key1 = actionValue) {
         sharedViewModel.handleDatabaseAction(actionValue = actionValue)
     }

@@ -21,8 +21,19 @@ fun PriorityItem(priority: Priority) {
         Canvas(modifier = Modifier.size(PRIORITY_INDICATOR_SIZE)) {
             drawCircle(color = priority.color)
         }
-        Text(modifier = Modifier.padding(start = SMALL_PADDING), text = "Sort by ${priority.name.lowercase(Locale.getDefault())} priority", color = MaterialTheme.colors.onSurface)
+        Text(modifier = Modifier.padding(start = SMALL_PADDING), text = priority.name, color = MaterialTheme.colors.onSurface)
         
+    }
+}
+
+@Composable
+fun PrioritySortItem(priority: Priority) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Canvas(modifier = Modifier.size(PRIORITY_INDICATOR_SIZE)) {
+            drawCircle(color = priority.color)
+        }
+        Text(modifier = Modifier.padding(start = SMALL_PADDING), text = "Sort by ${priority.name.lowercase(Locale.getDefault())} priority", color = MaterialTheme.colors.onSurface)
+
     }
 }
 
@@ -30,4 +41,10 @@ fun PriorityItem(priority: Priority) {
 @Preview
 fun PriorityItemPreview() {
     PriorityItem(priority = Priority.LOW)
+}
+
+@Composable
+@Preview
+fun PrioritySortItemPreview() {
+    PrioritySortItem(priority = Priority.LOW)
 }

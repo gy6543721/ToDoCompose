@@ -60,7 +60,12 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
         emptyList()
     )
 
-    fun getAllTasks() {
+    init {
+        getAllTasks()
+        getSortState()
+    }
+
+    private fun getAllTasks() {
         _allTasks.value = DataRequestState.Loading
         try {
             viewModelScope.launch {
@@ -81,7 +86,7 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
         }
     }
 
-    fun getSortState() {
+    private fun getSortState() {
         _sortState.value = DataRequestState.Loading
         try {
             viewModelScope.launch {

@@ -39,7 +39,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             throw exception
         }
     }.map { mutablePreferences ->
-        val sortState = mutablePreferences[PreferenceKey.sortKey] ?: Priority.NONE.name
+        val sortState = mutablePreferences[PreferenceKey.sortKey] ?: Priority.NO.name
         sortState
     }
 }
