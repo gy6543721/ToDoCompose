@@ -2,10 +2,7 @@ package levilin.todocompose.ui.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.OutlinedTextField
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -28,7 +25,10 @@ fun TaskContent(title: String, onTitleChanged:(String) -> Unit, priority: Priori
             value = title, onValueChange = { onTitleChanged(it) },
             label = { Text(text = stringResource(id = R.string.task_content_title_text)) },
             textStyle = MaterialTheme.typography.body1,
-            singleLine = true
+            singleLine = true,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedLabelColor = MaterialTheme.colors.primary
+            )
         )
 
         // Divider padding
@@ -43,6 +43,9 @@ fun TaskContent(title: String, onTitleChanged:(String) -> Unit, priority: Priori
             value = description, onValueChange = { onDescriptionChanged(it) },
             label = { Text(text = stringResource(id = R.string.task_content_description_text)) },
             textStyle = MaterialTheme.typography.body1,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedLabelColor = MaterialTheme.colors.primary
+            )
         )
     }
 }

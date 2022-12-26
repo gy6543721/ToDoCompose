@@ -21,7 +21,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import levilin.todocompose.R
 import levilin.todocompose.data.model.Priority
-import levilin.todocompose.data.model.ToDoTask
 import levilin.todocompose.ui.theme.*
 
 @Composable

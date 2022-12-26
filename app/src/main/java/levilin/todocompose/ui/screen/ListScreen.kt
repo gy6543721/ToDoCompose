@@ -15,11 +15,15 @@ import kotlinx.coroutines.launch
 
 @ExperimentalMaterialApi
 @Composable
-fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: SharedViewModel) {
+fun ListScreen(actionValue: ActionValue, navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: SharedViewModel) {
 
     LaunchedEffect(key1 = true) {
         sharedViewModel.getAllTasks()
         sharedViewModel.getSortState()
+    }
+
+    LaunchedEffect(key1 = actionValue) {
+        sharedViewModel.handleDatabaseAction(actionValue = actionValue)
     }
 
     val allTasks by sharedViewModel.allTasks.collectAsState()
@@ -29,12 +33,11 @@ fun ListScreen(navigationToTaskScreen: (taskID: Int) -> Unit, sharedViewModel: S
     val highPriorityTasks by sharedViewModel.highPriorityTasks.collectAsState()
     val searchAppBarState: SearchAppBarState by sharedViewModel.searchAppBarState
     val searchTextState: String by sharedViewModel.searchTextState
-    val actionValue: ActionValue by sharedViewModel.actionValue
     val scaffoldState = rememberScaffoldState()
 
     DisplayActionMessage(
         scaffoldState = scaffoldState,
-        handleDatabaseAction = { sharedViewModel.handleDatabaseAction(actionValue = actionValue) },
+        onComplete = { sharedViewModel.actionValue.value = it },
         taskTitle = sharedViewModel.title.value,
         actionValue = actionValue,
         onUndoClicked = { undoActionValue -> sharedViewModel.actionValue.value = undoActionValue }
@@ -71,9 +74,9 @@ fun ListFloatingActionButton(navigationToTaskScreen: (taskID: Int) -> Unit) {
 }
 
 @Composable
-fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -> Unit, taskTitle: String, actionValue: ActionValue, onUndoClicked:(ActionValue) -> Unit) {
-    handleDatabaseAction()
+fun DisplayActionMessage(scaffoldState: ScaffoldState, onComplete:(ActionValue) -> Unit, taskTitle: String, actionValue: ActionValue, onUndoClicked:(ActionValue) -> Unit) {
     val scope = rememberCoroutineScope()
+
     LaunchedEffect(key1 = actionValue) {
         if (actionValue != ActionValue.NO_ACTION) {
             scope.launch {
@@ -84,6 +87,7 @@ fun DisplayActionMessage(scaffoldState: ScaffoldState, handleDatabaseAction:() -
                 )
                 undoDeleteTask(actionValue = actionValue, snackBarResult = actionMessage, onUndoClicked = onUndoClicked)
             }
+            onComplete(ActionValue.NO_ACTION)
         }
     }
 }
