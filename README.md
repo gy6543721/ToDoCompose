@@ -1,6 +1,6 @@
 # ToDoCompose
 Native Android Application written in Kotlin with Jetpack Compose.  
-Support Dark Mode.  
+Implement with MVVM structure, support Dark Mode.  
 [Demo Video](https://youtu.be/8xcOVmF8HjU)  
 <br>
 
