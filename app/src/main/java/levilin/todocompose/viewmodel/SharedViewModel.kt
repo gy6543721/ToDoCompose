@@ -1,5 +1,6 @@
 package levilin.todocompose.viewmodel
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -80,8 +81,9 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
 
     fun getSelectedTasks(taskID: Int) {
         viewModelScope.launch {
-            toDoRepository.getSelectedTask(taskID = taskID).collect(){ selectedToDoTask ->
+            toDoRepository.getSelectedTask(taskID = taskID).collect { selectedToDoTask ->
                 _selectedTask.value = selectedToDoTask
+                Log.d("TAG", ("SVM _selectedTask: " + _selectedTask.value!!.title))
             }
         }
     }
@@ -106,7 +108,7 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
 
         try {
             viewModelScope.launch {
-                toDoRepository.searchDataBase(searchQuery = "%$searchQuery%").collect(){ searchResult ->
+                toDoRepository.searchDataBase(searchQuery = "%$searchQuery%").collect { searchResult ->
                     _searchedTasks.value = DataRequestState.Success(searchResult)
                 }
             }
@@ -114,6 +116,8 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
             _searchedTasks.value = DataRequestState.Failed(error = e)
         }
         searchAppBarState.value = SearchAppBarState.TRIGGERED
+        Log.d("TAG", ("SVM _searchedTask: " + _searchedTasks.value))
+        Log.d("TAG", ("SVM searchedTask: " + searchedTasks.value))
     }
 
     fun handleDatabaseAction(actionValue: ActionValue) {

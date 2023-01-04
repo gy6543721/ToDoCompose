@@ -46,13 +46,16 @@ fun ListAppBar(sharedViewModel: SharedViewModel, searchAppBarState: SearchAppBar
         else -> {
             SearchAppBar(
                 text = searchTextState,
-                onTextChanged = { inputText ->  sharedViewModel.searchTextState.value = inputText },
+                onTextChanged = { inputText ->
+                    sharedViewModel.searchTextState.value = inputText
+                    // Show search result while typing
+                    sharedViewModel.searchSelectedTasks(searchQuery = inputText)
+                },
                 onCloseClicked = {
                     sharedViewModel.searchAppBarState.value = SearchAppBarState.CLOSED
                     sharedViewModel.searchTextState.value = ""
                 },
-                onSearchClicked = { inputText -> sharedViewModel.searchSelectedTasks(searchQuery = inputText)
-                }
+                onSearchClicked = { inputText -> sharedViewModel.searchSelectedTasks(searchQuery = inputText) }
             )
         }
     }

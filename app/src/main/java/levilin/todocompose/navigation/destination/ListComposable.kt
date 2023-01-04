@@ -1,5 +1,6 @@
 package levilin.todocompose.navigation.destination
 
+import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.*
@@ -30,7 +31,6 @@ fun NavGraphBuilder.listComposable(navigateToTaskScreen: (taskID: Int) -> Unit, 
         }
 
         val databaseActionValue: ActionValue by sharedViewModel.actionValue
-
         ListScreen(actionValue = databaseActionValue, navigationToTaskScreen = navigateToTaskScreen, sharedViewModel = sharedViewModel)
     }
 }

@@ -1,5 +1,6 @@
 package levilin.todocompose.ui.screen
 
+import android.util.Log
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
@@ -49,6 +50,7 @@ fun ListContent(
         when {
             searchAppBarState == SearchAppBarState.TRIGGERED -> {
                 if (searchedData is DataRequestState.Success) {
+                    Log.d("TAG", "ListContent SearchedData:" + searchedData.data.toString())
                     HandleListContent(toDoTaskList = searchedData.data, onSwipeToDelete = onSwipeToDelete, navigationToTaskScreen = navigationToTaskScreen)
                 }
             }

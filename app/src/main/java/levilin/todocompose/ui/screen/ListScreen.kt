@@ -1,5 +1,6 @@
 package levilin.todocompose.ui.screen
 
+import android.util.Log
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -32,7 +33,7 @@ fun ListScreen(actionValue: ActionValue, navigationToTaskScreen: (taskID: Int) -
 
     DisplayActionMessage(
         scaffoldState = scaffoldState,
-        onComplete = { sharedViewModel.actionValue.value = it },
+        onComplete = { completeActionValue ->  sharedViewModel.actionValue.value = completeActionValue },
         taskTitle = sharedViewModel.title.value,
         actionValue = actionValue,
         onUndoClicked = { undoActionValue -> sharedViewModel.actionValue.value = undoActionValue }
@@ -57,6 +58,8 @@ fun ListScreen(actionValue: ActionValue, navigationToTaskScreen: (taskID: Int) -
         topBar = { ListAppBar(sharedViewModel= sharedViewModel, searchAppBarState= searchAppBarState, searchTextState = searchTextState) },
         floatingActionButton = { ListFloatingActionButton(navigationToTaskScreen = navigationToTaskScreen) }
     )
+
+    Log.d("TAG", "ListScreen SearchedTasks: $searchedTasks")
 }
 
 @Composable
