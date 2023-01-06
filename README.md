@@ -30,7 +30,8 @@ Implement with MVVM structure, support Dark Mode.
 
 # Main Libraries Used
 * Jetpack Compose
-* JetPack DataStore
+* DataStore
+* Coroutines
 * Room
 * Dagger Hilt
 * Junit
