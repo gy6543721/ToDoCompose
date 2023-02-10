@@ -83,7 +83,6 @@ class SharedViewModel @Inject constructor(private val toDoRepository: ToDoReposi
         viewModelScope.launch {
             toDoRepository.getSelectedTask(taskID = taskID).collect { selectedToDoTask ->
                 _selectedTask.value = selectedToDoTask
-                Log.d("TAG", ("SVM _selectedTask: " + _selectedTask.value!!.title))
             }
         }
     }
