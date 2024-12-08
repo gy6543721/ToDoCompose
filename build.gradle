@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        compose_ui_version = '1.1.1'
+        compose_ui_version = '1.5.15'
         nav_version = "2.5.3"
     }
     repositories {
