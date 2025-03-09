@@ -1,8 +1,10 @@
 package levilin.todocompose.navigation
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -23,7 +25,10 @@ fun SetupNavigation(navHostController: NavHostController, sharedViewModel: Share
     }
     
     NavHost(
-        modifier = Modifier.statusBarsPadding().navigationBarsPadding(),
+        modifier = Modifier
+            .background(color = MaterialTheme.colors.background)
+            .statusBarsPadding()
+            .navigationBarsPadding(),
         navController = navHostController,
         startDestination = ConstantValue.SPLASH_SCREEN
     ) {
